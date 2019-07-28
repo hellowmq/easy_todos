@@ -1,6 +1,6 @@
 # easy_todos
 
-A new Flutter application.
+基于 Flutter 框架开发的简易任务清单，还是半成品。
 
 ## Getting Started
 
