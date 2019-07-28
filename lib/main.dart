@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'bean/Data.dart';
+
 void main() {
   runApp(
     MaterialApp(
@@ -16,51 +18,6 @@ void main() {
       ),
     ),
   );
-}
-
-class Todo {
-  String title;
-  bool done;
-
-  Todo([String str]) {
-    title = str != null ? str : DateTime.now().toString();
-
-    done = false;
-  }
-
-  Todo.fromJson(Map<String, dynamic> json)
-      : title = json['title'],
-        done = json['done'];
-
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'done': done,
-      };
-}
-
-class TodoList {
-  List<Todo> todoList;
-
-  TodoList() {
-    todoList = List<Todo>();
-  }
-
-  TodoList.fromJson(Map<String, dynamic> jsonMap) {
-    todoList.clear();
-    jsonMap.forEach((index, todoJson) {
-      Map todoMap = json.decode(todoJson);
-      todoList.insert(int.parse(index), new Todo.fromJson(todoMap));
-    });
-  }
-}
-
-Map<String, dynamic> todoListToMap(TodoList todoList) {
-  Map<String, dynamic> todoListMap = new Map<String, dynamic>();
-  todoList.todoList.forEach((todo) {
-    String todoJson = json.encode(todo);
-    todoListMap[todoList.todoList.indexOf(todo).toString()] = todoJson;
-  });
-  return todoListMap;
 }
 
 class TodoListStorage {
@@ -97,7 +54,7 @@ class TodoListStorage {
     String jsonTodoList = json.encode(
       todoList,
       toEncodable: (todoList) {
-        return todoListToMap(todoList);
+        return TodoList.todoListToMap(todoList);
       },
     );
     return file.writeAsString(jsonTodoList);
