@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'Todo.dart';
+import 'todo.dart';
 
 class TodoList {
   List<Todo> todoList;
